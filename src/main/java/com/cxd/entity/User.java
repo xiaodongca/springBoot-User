@@ -1,8 +1,12 @@
 package com.cxd.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by cai x d
@@ -14,9 +18,14 @@ public class User {
     @GeneratedValue
     private Integer id;
 
+    @NotBlank(message = "这个字段必传")
     private String name;
 
+    @Min(value = 18,message = "未成年禁止入内")
     private Integer age;
+
+    @NotNull(message = "金额必传")
+    private Double money;
 
     public User() {
     }
@@ -49,4 +58,14 @@ public class User {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+
 }

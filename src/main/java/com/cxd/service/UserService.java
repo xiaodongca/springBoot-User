@@ -1,7 +1,10 @@
 package com.cxd.service;
 
 import com.cxd.entity.User;
+import com.cxd.enums.ResultEnum;
+import com.cxd.exception.UserException;
 import com.cxd.repository.UserRepository;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -75,5 +78,15 @@ public class UserService {
         return null;
     }
 
-
+    public void getAge(Integer id) throws Exception{
+        User user = userRepository.findOne(id);
+        Integer age = user.getAge();
+        if(age<10){
+            //返回"你还在上小学" code=100
+            throw new UserException(ResultEnum.PRIMARY_SCHOOL);
+        }else if (age>10 && age<16){
+            //返回"你还在上初中" code=101
+            throw new UserException(ResultEnum.MIDDLE_SCHOOL);
+        }
+    }
 }
